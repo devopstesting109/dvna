@@ -12,7 +12,7 @@ module.exports = function (passport) {
     passport.deserializeUser(function (uid, done) {
         db.User.findOne({
             where: {
-                'id': uid
+                'id': String(uid)
             }
         }).then(function (user) {
             if (user) {
@@ -30,7 +30,7 @@ module.exports = function (passport) {
         function (req, username, password, done) {
             db.User.findOne({
                 where: {
-                    'login': username
+                    'login': String(username)
                 }
             }).then(function (user) {
                 if (!user) {
@@ -54,7 +54,7 @@ module.exports = function (passport) {
             findOrCreateUser = function () {
                 db.User.findOne({
                     where: {
-                        'email': username
+                        'email': String(username)
                     }
                 }).then(function (user) {
                     if (user) {
